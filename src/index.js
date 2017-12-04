@@ -18,10 +18,10 @@ class App extends React.Component {
   handleGenerate(event) {
     event.preventDefault();
     this.setState({
-      value: "",
-      progres: 0
+      value: this.randomString(),
+      progress: 0
     });
-    this.doRandom();
+    window.setTimeout(this.doRandom.bind(this), 100);
   }
 
   doRandom() {
@@ -35,8 +35,13 @@ class App extends React.Component {
       joffrey.substring(0, this.state.progress) +
       rand.substring(this.state.progress, 15);
 
-    this.setState({ value: combination, progress: this.state.progress + 1 });
-    window.setTimeout(this.doRandom.bind(this), 100);
+    let prog = this.state.progress;
+    if (Math.random() > 0.6) {
+      prog++;
+    }
+
+    this.setState({ value: combination, progress: prog });
+    window.setTimeout(this.doRandom.bind(this), 50);
   }
 
   randomString() {
